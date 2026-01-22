@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: travel-app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: travel-app
+  template:
+    metadata:
+      labels:
+        app: travel-app
+    spec:
+      imagePullSecrets:
+      - name: my-docker-key
+      volumes:
+      - name: config # ConfigMap 연결
+        configMap:
+          name: fluent-bit-config  
+      - name: image-storage-volume
+        persistentVolumeClaim:
+          claimName: travel-image-pvc #  1GB EBS 주문서
+      - name: log-storage-volume
+        emptyDir: {}                # 로그용 무료 임시 저장소
+
+      containers:
+      - name: fluent-bit
+        image: fluent/fluent-bit:latest
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+        volumeMounts:
+        - name: log-storage-volume # 앱과 같은 로그 폴더를 공유
+          mountPath: /app/logs
+        - name: config
+          mountPath: /fluent-bit/etc/fluent-bit.conf
+          subPath: fluent-bit.conf
+
+      - name: travel-app
+        image: dmlguyq1537/travel-app:v3
+        ports:
+        - containerPort: 8090
+        resources:
+          requests:
+            memory: "300Mi" # 평소 쓰는 양
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+        env:
+        # 1. DB 접속 주소 (RDS 엔드포인트 적용)
+        - name: SPRING_DATASOURCE_URL
+          value: "jdbc:mysql://database-1.cfe2w24aw4t5.ap-northeast-2.rds.amazonaws.com:3306/travel_db?useSSL=false&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true"
+        
+        # 2. DB 접속 아이디
+        - name: SPRING_DATASOURCE_USERNAME
+          value: "root"
+        
+        # 3. DB 접속 비밀번호 
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "root1234"
+        
+        # 4. JPA 설정 (테이블 자동 생성)
+        - name: SPRING_JPA_HIBERNATE_DDL_AUTO
+          value: "update"
+
+        - name: SPRING_JPA_SHOW_SQL
+          value: "true"
+
+        - name: SPRING_SQL_INIT_MODE
+          value: "always"
+
+        - name: SPRING_SQL_INIT_CONTINUE_ON_ERROR
+          value: "true"
+
+        volumeMounts:
+        - name: image-storage-volume
+          mountPath: /app/upload/images # 상품 이미지 저장 경로 (EBS)
+        - name: log-storage-volume
+          mountPath: /app/logs          # 서비스 로그 저장 경로 (무료 공간)  
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: travel-app-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8090
+      nodePort: 31689
+  selector:
+    app: travel-app
