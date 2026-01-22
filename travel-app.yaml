@@ -61,7 +61,10 @@ spec:
         
         # 3. DB 접속 비밀번호 
         - name: SPRING_DATASOURCE_PASSWORD
-          value: "root1234"
+          valueFrom:
+            secretKeyRef:
+              name: travel-db-secret
+              key: password"
         
         # 4. JPA 설정 (테이블 자동 생성)
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
