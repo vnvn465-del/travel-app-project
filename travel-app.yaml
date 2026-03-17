@@ -64,7 +64,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: travel-db-secret
-              key: password"
+              key: password
         
         # 4. JPA 설정 (테이블 자동 생성)
         - name: SPRING_JPA_HIBERNATE_DDL_AUTO
