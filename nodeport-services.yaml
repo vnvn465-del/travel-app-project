@@ -12,23 +12,4 @@ spec:
     nodePort: 32000    # 브라우저 접속용 포트 (EC2-IP:32000)
   selector:
     app.kubernetes.io/name: grafana
----
-# 2. ArgoCD Server 서비스 설정
-apiVersion: v1
-kind: Service
-metadata:
-  name: argocd-server-nodeport
-  namespace: argocd
-spec:
-  type: NodePort
-  ports:
-  - name: http
-    port: 80
-    targetPort: 8080
-    nodePort: 32001    # 브라우저 접속용 HTTP 포트 (EC2-IP:32001)
-  - name: https
-    port: 443
-    targetPort: 8081
-    nodePort: 32002    # 브라우저 접속용 HTTPS 포트 (EC2-IP:32002)
-  selector:
-    app.kubernetes.io/name: argocd-server
+
