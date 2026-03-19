@@ -41,7 +41,7 @@ spec:
 apiVersion: v1
 kind: ResourceQuota
 metadata:
-  name: ingress-nginx-quota
+  name: namespace-quota
   namespace: ingress-nginx
 spec:
   hard:
