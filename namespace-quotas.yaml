@@ -1,3 +1,4 @@
+# 1. Monitoring (자원을 많이 먹지만 4G 환경에선 1.2G 정도로 타협)
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -5,9 +6,10 @@ metadata:
   namespace: monitoring
 spec:
   hard:
-    limits.cpu: "1"
-    limits.memory: 1.5Gi
+    requests.memory: "500Mi"
+    limits.memory: "1Gi"  
 ---
+# 2. ArgoCD (103% 문제를 해결하면서도 4G에 맞게 최적화)
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -15,29 +17,10 @@ metadata:
   namespace: argocd
 spec:
   hard:
-    limits.cpu: "500m"
-    limits.memory: 500Mi
+    requests.memory: "400Mi"
+    limits.memory: "800Mi" 
 ---
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: kube-system
-spec:
-  hard:
-    limits.cpu: "1"
-    limits.memory: 1Gi
----
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: default
-spec:
-  hard:
-    limits.cpu: "1"
-    limits.memory: 1Gi
----
+# 3. Ingress-Nginx (관문이므로 최소한의 방어선 유지)
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -45,8 +28,28 @@ metadata:
   namespace: ingress-nginx
 spec:
   hard:
-    requests.cpu: "500m"
-    requests.memory: "1Gi"
-    limits.cpu: "1"
+    requests.memory: "200Mi"
+    limits.memory: "500Mi" #  (현재 사용량이 매우 적으므로 충분함)
+---
+# 4. Kube-System (시스템 필수 요소)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: kube-system
+spec:
+  hard:
+    requests.memory: "300Mi"
+    limits.memory: "800Mi" 
+---
+# 5. Default (사용자 앱 - Travel-App)
+# 가장 중요한 서비스이므로 여기서 자원을 최대한 확보합니다.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: default
+spec:
+  hard:
+    requests.memory: "500Mi"
     limits.memory: "1.5Gi"
-
