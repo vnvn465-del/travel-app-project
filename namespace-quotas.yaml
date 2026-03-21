@@ -51,5 +51,5 @@ metadata:
   namespace: default
 spec:
   hard:
-    requests.memory: "1000Mi"
-    limits.memory: "1.5Gi"
+    requests.memory: "1600Mi"
+    limits.memory: "2Gi"
