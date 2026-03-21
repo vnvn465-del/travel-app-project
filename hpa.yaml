@@ -22,4 +22,4 @@ spec:
       name: memory    # 메모리 지표 추가
       target:
         type: Utilization
-        averageUtilization: 70
+        averageUtilization: 90
