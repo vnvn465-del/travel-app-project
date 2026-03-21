@@ -1,0 +1,25 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: travel-app-hpa
+  namespace: default
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: travel-app
+  minReplicas: 1
+  maxReplicas: 2      # 현재 노드 여유량(9%)을 고려한 안전 수치
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
+  - type: Resource
+    resource:
+      name: memory    # 메모리 지표 추가
+      target:
+        type: Utilization
+        averageUtilization: 70
