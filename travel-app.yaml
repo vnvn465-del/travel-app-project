@@ -28,7 +28,7 @@ spec:
         image: fluent/fluent-bit:latest
         resources:
           requests:
-            memory: "64Mi"
+            memory: "128Mi"
             cpu: "50m"
           limits:
             memory: "128Mi"
@@ -45,7 +45,7 @@ spec:
         - containerPort: 8090
         resources:
           requests:
-            memory: "300Mi" # 평소 쓰는 양
+            memory: "512Mi" # 평소 쓰는 양
             cpu: "100m"
           limits:
             memory: "512Mi"
