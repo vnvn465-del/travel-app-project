@@ -6,8 +6,10 @@ metadata:
   namespace: monitoring
 spec:
   hard:
-    requests.memory: "3Gi"
-    limits.memory: "6Gi"  
+    requests.cpu: "500m"
+    requests.memory: "1.5Gi"
+    limits.cpu: "1"
+    limits.memory: "2Gi"
 ---
 # 2. ArgoCD (103% 문제를 해결하면서도 4G에 맞게 최적화)
 apiVersion: v1
