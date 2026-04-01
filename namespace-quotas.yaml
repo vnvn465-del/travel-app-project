@@ -10,6 +10,20 @@ spec:
     requests.memory: "1.5Gi"
     limits.cpu: "1"
     limits.memory: "2Gi"
+
+---
+# 2. logging-quota.yaml
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: logging-quota
+  namespace: logging
+spec:
+  hard:
+    requests.cpu: "1"
+    requests.memory: "3Gi"
+    limits.cpu: "2"
+    limits.memory: "6Gi"
 ---
 # 2. ArgoCD (103% 문제를 해결하면서도 4G에 맞게 최적화)
 apiVersion: v1
