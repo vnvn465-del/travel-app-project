@@ -20,8 +20,11 @@ spec:
       - name: image-storage-volume
         persistentVolumeClaim:
           claimName: travel-image-pvc #  1GB EBS 주문서
-     
-      containers:
+      - name: log-storage-volume
+        emptyDir: {}                # 로그용 무료 임시 저장소
+
+      
+
       - name: travel-app
         image: dmlguyq1537/travel-app:v3
         ports:
@@ -35,8 +38,8 @@ spec:
             cpu: "500m"
         readinessProbe:
           httpGet:
-            path: /  # 스프링 부트 상태 체크 경로
-            port: 8090
+            path: /actuator/health  # 스프링 부트 상태 체크 경로
+            port: 8080
           initialDelaySeconds: 30    # ⭐ 중요: 부팅 직후 30초는 체크도 하지 말고 기다려라!
           periodSeconds: 10          # 10초마다 한 번씩 상태를 확인해라
           successThreshold: 1        # 1번만 성공하면 '준비 완료'로 인정
@@ -73,7 +76,8 @@ spec:
         volumeMounts:
         - name: image-storage-volume
           mountPath: /app/upload/images # 상품 이미지 저장 경로 (EBS)
-        
+        - name: log-storage-volume
+          mountPath: /app/logs          # 서비스 로그 저장 경로 (무료 공간)  
 ---
 apiVersion: v1
 kind: Service
@@ -86,4 +90,4 @@ spec:
       targetPort: 8090
       nodePort: 31689
   selector:
-    app: travel-app
+    app: travel-ap
