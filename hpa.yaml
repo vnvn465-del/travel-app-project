@@ -9,17 +9,17 @@ spec:
     kind: Deployment
     name: travel-app-deployment
   minReplicas: 1
-  maxReplicas: 2      # 현재 노드 여유량(9%)을 고려한 안전 수치
+  maxReplicas: 3      # 현재 노드 여유량(9%)을 고려한 안전 수치
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 80
   - type: Resource
     resource:
       name: memory    # 메모리 지표 추가
       target:
         type: Utilization
-        averageUtilization: 90
+        averageUtilization: 85
