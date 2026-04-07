@@ -20,8 +20,7 @@ spec:
       - name: image-storage-volume
         persistentVolumeClaim:
           claimName: travel-image-pvc #  1GB EBS 주문서
-      - name: log-storage-volume
-        emptyDir: {}                # 로그용 무료 임시 저장소
+     
 
       
 
@@ -76,8 +75,7 @@ spec:
         volumeMounts:
         - name: image-storage-volume
           mountPath: /app/upload/images # 상품 이미지 저장 경로 (EBS)
-        - name: log-storage-volume
-          mountPath: /app/logs          # 서비스 로그 저장 경로 (무료 공간)  
+        
 ---
 apiVersion: v1
 kind: Service
