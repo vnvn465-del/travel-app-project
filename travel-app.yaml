@@ -50,7 +50,7 @@ spec:
             cpu: "200m"
           limits:
             memory: "900Mi"
-            cpu: "1000m"
+            cpu: "500m"
         env:
         # 1. DB 접속 주소 (RDS 엔드포인트 적용)
         - name: SPRING_DATASOURCE_URL
