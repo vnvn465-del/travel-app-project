@@ -54,8 +54,8 @@ metadata:
   namespace: default
 spec:
   hard:
-    requests.memory: "1600Mi"
-    limits.memory: "2Gi"
+    requests.memory: "3000Mi"
+    limits.memory: "3.5Gi"
 
 ---
 # 6. logging (loki 가 깔려있는 네임스페이스)
