@@ -23,7 +23,22 @@ spec:
       - name: log-storage-volume
         emptyDir: {}                # 로그용 무료 임시 저장소
 
-      
+      containers:
+      - name: fluent-bit
+        image: fluent/fluent-bit:latest
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "50m"
+          limits:
+            memory: "128Mi"
+            cpu: "50m"
+        volumeMounts:
+        - name: log-storage-volume # 앱과 같은 로그 폴더를 공유
+          mountPath: /app/logs
+        - name: config
+          mountPath: /fluent-bit/etc/fluent-bit.conf
+          subPath: fluent-bit.conf
 
       - name: travel-app
         image: dmlguyq1537/travel-app:v3
