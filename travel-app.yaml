@@ -51,14 +51,14 @@ spec:
           limits:
             memory: "900Mi"
             cpu: "500m"
-        readinessProbe:
-          httpGet:
-            path: /  # 스프링 부트 상태 체크 경로
-            port: 8090
-          initialDelaySeconds: 30    # ⭐ 중요: 부팅 직후 30초는 체크도 하지 말고 기다려라!
-          periodSeconds: 10          # 10초마다 한 번씩 상태를 확인해라
-          successThreshold: 1        # 1번만 성공하면 '준비 완료'로 인정
-          failureThreshold: 3        # 3번 연속 실패하면 '준비 안 됨'으로 간주
+        # readinessProbe:
+        #   httpGet:
+        #     path: /  # 스프링 부트 상태 체크 경로
+        #     port: 8090
+        #   initialDelaySeconds: 30    # ⭐ 중요: 부팅 직후 30초는 체크도 하지 말고 기다려라!
+        #   periodSeconds: 10          # 10초마다 한 번씩 상태를 확인해라
+        #   successThreshold: 1        # 1번만 성공하면 '준비 완료'로 인정
+        #   failureThreshold: 3        # 3번 연속 실패하면 '준비 안 됨'으로 간주
         env:
         # 1. DB 접속 주소 (RDS 엔드포인트 적용)
         - name: SPRING_DATASOURCE_URL
