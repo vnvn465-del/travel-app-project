@@ -41,7 +41,7 @@ spec:
           subPath: fluent-bit.conf
 
       - name: travel-app
-        image: dmlguyq1537/travel-app:v8
+        image: dmlguyq1537/travel-app:v9
         ports:
         - containerPort: 8090
         resources:
