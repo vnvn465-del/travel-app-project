@@ -9,7 +9,7 @@ spec:
     kind: Deployment
     name: travel-app-deployment
   minReplicas: 1
-  maxReplicas: 3      # 현재 노드 여유량(9%)을 고려한 안전 수치
+  maxReplicas: 1      # 현재 노드 여유량(9%)을 고려한 안전 수치
   metrics:
   - type: Resource
     resource:
