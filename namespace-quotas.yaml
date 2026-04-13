@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   hard:
-    requests.cpu: "500m"
+    requests.cpu: "700m"
     requests.memory: "1.5Gi"
     limits.cpu: "1"
     limits.memory: "2Gi"
