@@ -11,6 +11,19 @@ spec:
       labels:
         app: travel-app
     spec:
+      affinity:
+        podAntiAffinity:
+          # "가급적" 다른 노드에 찢어져서 배포해라 (Soft rule)
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - travel-app
+              topologyKey: "kubernetes.io/hostname"
       imagePullSecrets:
       - name: my-docker-key
       volumes:
