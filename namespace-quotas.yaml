@@ -35,15 +35,15 @@ spec:
     limits.memory: "200Mi" #  (현재 사용량이 매우 적으므로 충분함)
 ---
 # 4. Kube-System (시스템 필수 요소)
-apiVersion: v1
-kind: ResourceQuota
-metadata:
-  name: namespace-quota
-  namespace: kube-system
-spec:
-  hard:
-    requests.memory: "2000Mi"
-    limits.memory: "4000Mi" 
+# apiVersion: v1
+# kind: ResourceQuota
+# metadata:
+#   name: namespace-quota
+#   namespace: kube-system
+# spec:
+#   hard:
+#     requests.memory: "2000Mi"
+#     limits.memory: "4000Mi" 
 ---
 # 5. Default (사용자 앱 - Travel-App)
 # 가장 중요한 서비스이므로 여기서 자원을 최대한 확보합니다.
