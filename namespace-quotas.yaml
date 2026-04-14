@@ -42,7 +42,7 @@ metadata:
   namespace: kube-system
 spec:
   hard:
-    requests.memory: "300Mi"
+    requests.memory: "2000Mi"
     limits.memory: "4000Mi" 
 ---
 # 5. Default (사용자 앱 - Travel-App)
