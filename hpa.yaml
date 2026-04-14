@@ -8,7 +8,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: travel-app-deployment
-  minReplicas: 2
+  minReplicas: 3
   maxReplicas: 4      # 현재 노드 여유량(9%)을 고려한 안전 수치
   metrics:
   - type: Resource
