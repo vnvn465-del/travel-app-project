@@ -36,7 +36,7 @@ spec:
       # - name: log-storage-volume
       #   emptyDir: {}                # 로그용 무료 임시 저장소
 
-      # containers:
+      containers:
       # - name: fluent-bit
       #   image: fluent/fluent-bit:latest
       #   resources:
