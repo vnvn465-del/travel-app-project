@@ -32,7 +32,7 @@ spec:
           name: fluent-bit-config  
       - name: image-storage-volume
         persistentVolumeClaim:
-          claimName: travel-image-pvc #  1GB EBS 주문서
+          claimName: travel-image-efs-pvc
       - name: log-storage-volume
         emptyDir: {}                # 로그용 무료 임시 저장소
 
