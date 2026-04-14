@@ -42,8 +42,8 @@ metadata:
   namespace: kube-system
 spec:
   hard:
-    requests.memory: "500Mi"
-    limits.memory: "3000Mi" 
+    requests.memory: "300Mi"
+    limits.memory: "4000Mi" 
 ---
 # 5. Default (사용자 앱 - Travel-App)
 # 가장 중요한 서비스이므로 여기서 자원을 최대한 확보합니다.
