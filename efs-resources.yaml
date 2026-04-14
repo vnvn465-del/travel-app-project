@@ -4,6 +4,10 @@ apiVersion: storage.k8s.io/v1
 metadata:
   name: efs-sc
 provisioner: efs.csi.aws.com
+parameters:
+  provisioningMode: efs-ap
+  fileSystemId: fs-079f6e280570a31f9  # ⭐ 여기에 복사한 EFS ID를 꼭 넣어주세요!
+  directoryPerms: "700"
 ---
 # 2. PVC (실제 1GB 용량 빌리기)
 apiVersion: v1
