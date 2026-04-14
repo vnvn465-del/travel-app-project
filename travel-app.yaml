@@ -27,31 +27,31 @@ spec:
       imagePullSecrets:
       - name: my-docker-key
       volumes:
-      - name: config # ConfigMap 연결
-        configMap:
-          name: fluent-bit-config  
+      # - name: config # ConfigMap 연결
+      #   configMap:
+      #     name: fluent-bit-config  
       - name: image-storage-volume
         persistentVolumeClaim:
           claimName: travel-image-efs-pvc
-      - name: log-storage-volume
-        emptyDir: {}                # 로그용 무료 임시 저장소
+      # - name: log-storage-volume
+      #   emptyDir: {}                # 로그용 무료 임시 저장소
 
-      containers:
-      - name: fluent-bit
-        image: fluent/fluent-bit:latest
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "50m"
-          limits:
-            memory: "128Mi"
-            cpu: "50m"
-        volumeMounts:
-        - name: log-storage-volume # 앱과 같은 로그 폴더를 공유
-          mountPath: /app/logs
-        - name: config
-          mountPath: /fluent-bit/etc/fluent-bit.conf
-          subPath: fluent-bit.conf
+      # containers:
+      # - name: fluent-bit
+      #   image: fluent/fluent-bit:latest
+      #   resources:
+      #     requests:
+      #       memory: "128Mi"
+      #       cpu: "50m"
+      #     limits:
+      #       memory: "128Mi"
+      #       cpu: "50m"
+      #   volumeMounts:
+      #   - name: log-storage-volume # 앱과 같은 로그 폴더를 공유
+      #     mountPath: /app/logs
+      #   - name: config
+      #     mountPath: /fluent-bit/etc/fluent-bit.conf
+      #     subPath: fluent-bit.conf
 
       - name: travel-app
         image: dmlguyq1537/travel-app:v9
@@ -104,8 +104,8 @@ spec:
         volumeMounts:
         - name: image-storage-volume
           mountPath: /app/upload/images # 상품 이미지 저장 경로 (EBS)
-        - name: log-storage-volume
-          mountPath: /app/logs          # 서비스 로그 저장 경로 (무료 공간)  
+        # - name: log-storage-volume
+        #   mountPath: /app/logs          # 서비스 로그 저장 경로 (무료 공간)  
 ---
 apiVersion: v1
 kind: Service
