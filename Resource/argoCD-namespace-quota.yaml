@@ -6,4 +6,4 @@ metadata:
 spec:
   hard:
     requests.memory: "400Mi"
-    limits.memory: "600Mi"
+    limits.memory: "1500Mi"
