@@ -1,1 +1,12 @@
-
+# 1. Monitoring (자원을 많이 먹지만 4G 환경에선 1.2G 정도로 타협)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: monitoring
+spec:
+  hard:
+    requests.cpu: "700m"
+    requests.memory: "1.5Gi"
+    limits.cpu: "2800m"
+    limits.memory: "2Gi"
