@@ -1,1 +1,10 @@
-
+# 가장 중요한 서비스이므로 여기서 자원을 최대한 확보합니다.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: default
+spec:
+  hard:
+    requests.memory: "4000Mi"
+    limits.memory: "5Gi"
