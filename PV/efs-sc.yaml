@@ -8,22 +8,7 @@ parameters:
   provisioningMode: efs-ap
   fileSystemId: fs-079f6e280570a31f9  # ⭐ 여기에 복사한 EFS ID를 꼭 넣어주세요!
   directoryPerms: "700"
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: travel-image-efs-pv
-spec:
-  capacity:
-    storage: 1Gi
-  volumeMode: Filesystem
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: efs-sc # 이 이름이 PVC의 storageClassName과 같아야 함
-  csi:
-    driver: efs.csi.aws.com
-    volumeHandle: fs-079f6e280570a31f9 # ⭐ 의협님의 EFS ID로 변경!
+
 ---
 
 # 2. PVC (실제 1GB 용량 빌리기)
