@@ -1,1 +1,10 @@
-
+# 2. ArgoCD (103% 문제를 해결하면서도 4G에 맞게 최적화)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: namespace-quota
+  namespace: argocd
+spec:
+  hard:
+    requests.memory: "400Mi"
+    limits.memory: "600Mi"
