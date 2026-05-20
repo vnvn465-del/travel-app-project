@@ -12,4 +12,4 @@ spec:
   storageClassName: efs-sc # 이 이름이 PVC의 storageClassName과 같아야 함
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-079f6e280570a31f9 # ⭐ 의협님의 EFS ID로 변경!
+    volumeHandle: fs-079f6e280570a31f9 # EFS ID로 변경!
