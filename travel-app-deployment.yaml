@@ -13,7 +13,7 @@ spec:
     spec:
       affinity:
         podAntiAffinity:
-          # "가급적" 다른 노드에 찢어져서 배포해라 (Soft rule)
+          # Soft Rule 적용: 파드를 서로 다른 호스트 노드에 분산 배치하도록 유도
           preferredDuringSchedulingIgnoredDuringExecution:
           - weight: 100
             podAffinityTerm:
@@ -68,8 +68,8 @@ spec:
           httpGet:
             path: /  # 스프링 부트 상태 체크 경로
             port: 8090
-          initialDelaySeconds: 30    # ⭐ 중요: 부팅 직후 30초는 체크도 하지 말고 기다려라!
-          periodSeconds: 10          # 10초마다 한 번씩 상태를 확인해라
+          initialDelaySeconds: 90    # JVM 초기 구동 시간을 고려하여 트래픽 유입 지연
+          periodSeconds: 10          # 10초마다 한 번씩 상태를 확인
           successThreshold: 1        # 1번만 성공하면 '준비 완료'로 인정
           failureThreshold: 3        # 3번 연속 실패하면 '준비 안 됨'으로 간주
         env:
