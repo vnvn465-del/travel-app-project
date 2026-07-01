@@ -5,7 +5,7 @@ metadata:
   ingressClassName: nginx
 spec:
   rules:
-  - host: travel-app-lb-339761593.ap-northeast-2.elb.amazonaws.com  # 여기에 실제 주소 입력
+  - host: travel-app-lb-339761593.ap-northeast-2.elb.amazonaws.com  #  CLB 도메인 주소 입력
     http:
       paths:
       - path: /
