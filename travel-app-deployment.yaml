@@ -103,7 +103,7 @@ spec:
 
         volumeMounts:
         - name: image-storage-volume
-          mountPath: /app/upload/images # 상품 이미지 저장 경로 (EBS)
+          mountPath: /app/upload/images # 상품 이미지 저장 경로 (EFS)
         # - name: log-storage-volume
         #   mountPath: /app/logs          # 서비스 로그 저장 경로 (무료 공간)  
 # ---
