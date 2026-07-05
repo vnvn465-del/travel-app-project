@@ -1,4 +1,4 @@
-# 1. 스토리지 클래스 (어떤 드라이버를 쓸지 정의)
+# 스토리지 클래스 (어떤 드라이버를 쓸지 정의)
 kind: StorageClass
 apiVersion: storage.k8s.io/v1
 metadata:
