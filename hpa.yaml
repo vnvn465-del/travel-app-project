@@ -4,22 +4,28 @@ metadata:
   name: travel-app-hpa
   namespace: default
 spec:
+  # 스케일링 대상 지정 (여행사 메인 앱 Deployment)
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
     name: travel-app-deployment
+  # 스케일링 상하한선 설정  
   minReplicas: 1
-  maxReplicas: 3      # 
+   # 리소스 한계 고려 현재 노드(t3.large,8GB)의 자원과 다른 시스템 파드의 안정성을 고려하여 최대 3개로 제한.
+  maxReplicas: 3      
+   # 스케일링 기준 지표 (임계치에 도달하면 파드 확장)
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
+        # Deployment에 설정된 CPU Requests 값의 80%를 초과할 경우 확장
         averageUtilization: 80
   - type: Resource
     resource:
-      name: memory    # 
+      name: memory    
       target:
         type: Utilization
+        # Deployment에 설정된 Memory Requests 값의 85%를 초과할 경우 확장
         averageUtilization: 85
