@@ -27,14 +27,9 @@ spec:
       imagePullSecrets:
       - name: my-docker-key
       volumes:
-      # - name: config # ConfigMap 연결
-      #   configMap:
-      #     name: fluent-bit-config  
       - name: image-storage-volume
         persistentVolumeClaim:
           claimName: travel-image-efs-pvc
-      # - name: log-storage-volume
-      #   emptyDir: {}                # 로그용 무료 임시 저장소
 
       containers:
       - name: travel-app
@@ -43,11 +38,11 @@ spec:
         - containerPort: 8090
         resources:
           requests:
-            memory: "700Mi" # 평소 쓰는 양
-            cpu: "200m"
+            memory: "700Mi" # JVM 기본 구동(500Mib)과 안정적인 파드 생성을 보장하기 위한 최소값
+            cpu: "200m"    # HPA 오토스케일링의 기준점 (200m의 80% 도달 시 파드 확장)
           limits:
-            memory: "900Mi"
-            cpu: "500m"
+            memory: "900Mi"   # 메모리 누수로 인한 노드 다운(OOM) 방지 상한선
+            cpu: "500m"    # JVM 부팅 스파이크(600m)는 허용하되, 특정 파드의 CPU 독점을 막기 위한 제한
         readinessProbe:
           httpGet:
             path: /  # 스프링 부트 상태 체크 경로
